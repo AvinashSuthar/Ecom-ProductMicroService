@@ -30,5 +30,4 @@ public class ProductController {
             ProductDTO productDTO =  productService.getProducts(page, size, sortBy , orderBy);
             return new ResponseEntity<>(new APIResponse<>(true, "Products fetched successfully", productDTO), HttpStatus.OK);
     }
-
 }
