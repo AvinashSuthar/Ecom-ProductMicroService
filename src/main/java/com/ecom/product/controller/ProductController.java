@@ -4,13 +4,11 @@ package com.ecom.product.controller;
 import com.ecom.product.apiresponse.APIResponse;
 import com.ecom.product.constants.Constant;
 import com.ecom.product.dtos.ProductDTO;
+import com.ecom.product.entity.Product;
 import com.ecom.product.service.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -29,5 +27,9 @@ public class ProductController {
     ) {
             ProductDTO productDTO =  productService.getProducts(page, size, sortBy , orderBy);
             return new ResponseEntity<>(new APIResponse<>(true, "Products fetched successfully", productDTO), HttpStatus.OK);
+    }
+    @DeleteMapping("/product/{productId}")
+    public ResponseEntity<APIResponse<ProductDTO>> deleteProduct(@PathVariable("productId") Long productId) {
+        return null;
     }
 }
