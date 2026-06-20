@@ -24,10 +24,16 @@ public class ProductService {
         return products.stream().map(p -> modelMapper.map(p, ProductDTO.class)).toList();
     }
 
-    public ProductDTO deleteProduct(Long productId) {
-        Optional<Product> productToDelete = productRepository.findById(productId);
-        productRepository.deleteById(productId);
-        return productToDelete.map(product -> modelMapper.map(product, ProductDTO.class)).orElse(null);
+public ProductDTO deleteProduct(Long productId) {
+    Optional<Product> productToDelete = productRepository.findById(productId);
+    if (productToDelete.isEmpty()) {
+        return null;
+    }
+
+    Product product = productToDelete.get();
+    productRepository.delete(product);
+    return modelMapper.map(product, ProductDTO.class);
+}
 
     }
 }
