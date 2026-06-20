@@ -1,23 +1,16 @@
 package com.ecom.product.service;
 
-import com.ecom.product.apiresponse.APIResponse;
 import com.ecom.product.dtos.ProductDTO;
-import com.ecom.product.repository.ProductRepository;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
+import com.ecom.product.dtos.request.CreateProductRequest;
 
-@Service
-public class ProductService {
+import java.util.List;
 
-    private final ProductRepository productRepository;
-    public ProductService(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
+public interface ProductService {
+    List<ProductDTO> getProducts(Integer page, Integer size, String sortBy, String orderBy);
 
-    public ProductDTO getProducts(Integer page, Integer size, String sortBy, String sort) {
-        // Implement the logic to fetch products from the repository, apply pagination and sorting
-        // For now, we will return a placeholder response
+    ProductDTO deleteProduct(Long productId);
 
-        return new ProductDTO();
-    }
+    ProductDTO createProduct(CreateProductRequest createProductRequest);
+
+    ProductDTO updateProduct(CreateProductRequest createProductRequest, Long productId);
 }

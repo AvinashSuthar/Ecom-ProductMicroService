@@ -1,16 +1,13 @@
-package com.ecom.product.apiresponse;
-
+package com.ecom.product.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class APIResponse<T> {
+@NoArgsConstructor
+public class ErrorResponse {
     private Boolean status;
     private String message;
-    private T data;
 }
-
