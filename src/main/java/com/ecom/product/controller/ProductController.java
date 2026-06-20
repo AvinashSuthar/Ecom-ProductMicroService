@@ -3,6 +3,9 @@ package com.ecom.product.controller;
 
 import com.ecom.product.constants.Constant;
 import com.ecom.product.dtos.ProductDTO;
+import com.ecom.product.dtos.request.CreateProductRequest;
+import com.ecom.product.dtos.response.CreateProductResponse;
+import com.ecom.product.entity.Product;
 import com.ecom.product.response.APIResponse;
 import com.ecom.product.service.ProductService;
 import org.springframework.http.HttpStatus;
@@ -31,6 +34,13 @@ public class ProductController {
         return new ResponseEntity<>(new APIResponse<>(true, "Products fetched successfully", productDTO), HttpStatus.OK);
     }
 
+    @PostMapping("/products")
+    public ResponseEntity<APIResponse<ProductDTO>> createProduct(
+            @RequestBody CreateProductRequest createProductRequest
+    ) {
+        ProductDTO createdProduct = productService.createProduct(createProductRequest);
+        return new ResponseEntity<>(new APIResponse<>(true, "Product created successfully", createdProduct), HttpStatus.CREATED);
+    }
 
     @DeleteMapping("/products/{productId}")
     public ResponseEntity<APIResponse<ProductDTO>> deleteProduct(@PathVariable("productId") Long productId) {

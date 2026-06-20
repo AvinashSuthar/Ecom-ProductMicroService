@@ -1,8 +1,10 @@
 package com.ecom.product.service.impl;
 
 import com.ecom.product.dtos.ProductDTO;
+import com.ecom.product.dtos.request.CreateProductRequest;
 import com.ecom.product.entity.Product;
 import com.ecom.product.exception.NoResourceFoundException;
+import com.ecom.product.mapper.ProductMapper;
 import com.ecom.product.repository.ProductRepository;
 import com.ecom.product.service.ProductService;
 import org.modelmapper.ModelMapper;
@@ -16,10 +18,13 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
     private final ModelMapper modelMapper;
+    private final ProductMapper productMapper;
 
-    public ProductServiceImpl(ProductRepository productRepository, ModelMapper modelMapper) {
+    public ProductServiceImpl(ProductRepository productRepository, ModelMapper modelMapper , ProductMapper productMapper) {
         this.productRepository = productRepository;
         this.modelMapper = modelMapper;
+        this.productMapper = productMapper;
+
     }
 
     @Override
@@ -42,5 +47,11 @@ public class ProductServiceImpl implements ProductService {
         return modelMapper.map(product, ProductDTO.class);
     }
 
+    @Override
+    public ProductDTO createProduct(CreateProductRequest createProductRequest) {
+        Product product = productMapper.mapToProduct(createProductRequest);
+        Product savedProduct = productRepository.save(product);
 
+        return modelMapper.map(savedProduct, ProductDTO.class);
+    }
 }
