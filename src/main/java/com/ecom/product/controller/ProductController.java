@@ -27,7 +27,7 @@ public class ProductController {
             List<ProductDTO> productDTO =  productService.getProducts(page, size, sortBy , orderBy);
             return new ResponseEntity<>(new APIResponse<>(true, "Products fetched successfully", productDTO), HttpStatus.OK);
     }
-    @DeleteMapping("/product/{productId}")
+@DeleteMapping("/products/{productId}")
     public ResponseEntity<APIResponse<ProductDTO>> deleteProduct(@PathVariable("productId") Long productId) {
         ProductDTO deletedProduct = productService.deleteProduct(productId);
         return new ResponseEntity<>(new APIResponse<>(true, "Product deleted successfully", deletedProduct ), HttpStatus.OK);
