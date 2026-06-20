@@ -4,8 +4,6 @@ package com.ecom.product.controller;
 import com.ecom.product.constants.Constant;
 import com.ecom.product.dtos.ProductDTO;
 import com.ecom.product.dtos.request.CreateProductRequest;
-import com.ecom.product.dtos.response.CreateProductResponse;
-import com.ecom.product.entity.Product;
 import com.ecom.product.response.APIResponse;
 import com.ecom.product.service.ProductService;
 import org.springframework.http.HttpStatus;

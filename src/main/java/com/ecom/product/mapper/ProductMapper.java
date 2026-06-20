@@ -4,8 +4,6 @@ import com.ecom.product.dtos.request.CreateProductRequest;
 import com.ecom.product.entity.Category;
 import com.ecom.product.entity.Product;
 import com.ecom.product.repository.CategoryRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
