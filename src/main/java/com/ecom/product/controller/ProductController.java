@@ -5,7 +5,6 @@ import com.ecom.product.apiresponse.APIResponse;
 import com.ecom.product.constants.Constant;
 import com.ecom.product.dtos.ProductDTO;
 import com.ecom.product.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,8 +14,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1")
 public class ProductController {
-    @Autowired
-    private ProductService productService;
+    private final ProductService productService;
+
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
+
     @GetMapping("/products")
     public ResponseEntity<APIResponse<List<ProductDTO>>> getProducts(
             @RequestParam(value = "page", defaultValue = "0") Integer page,
