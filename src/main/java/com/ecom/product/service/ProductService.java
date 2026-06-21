@@ -11,4 +11,6 @@ public interface ProductService {
     ProductDTO deleteProduct(Long productId);
 
     ProductDTO createProduct(CreateProductRequest createProductRequest);
+
+    List<ProductDTO> getProductsByKeyword(String keyword);
 }

@@ -54,4 +54,13 @@ public class ProductServiceImpl implements ProductService {
 
         return modelMapper.map(savedProduct, ProductDTO.class);
     }
+
+    @Override
+    public List<ProductDTO> getProductsByKeyword(String keyword) {
+        List<Product> products = productRepository.findByNameContainingIgnoreCase(keyword);
+        if (products.isEmpty()) {
+            throw new NoResourceFoundException("No products found with keyword: " + keyword);
+        }
+        return products.stream().map(p -> modelMapper.map(p, ProductDTO.class)).toList();
+    }
 }
