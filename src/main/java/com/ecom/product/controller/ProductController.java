@@ -32,6 +32,11 @@ public class ProductController {
         return new ResponseEntity<>(new APIResponse<>(true, "Products fetched successfully", productDTO), HttpStatus.OK);
     }
 
+    @GetMapping("/products/{keyword}")
+    public ResponseEntity<APIResponse<List<ProductDTO>>> getProductsByKeyword( @PathVariable("keyword") String keyword){
+        List<ProductDTO> productDTO = productService.getProductsByKeyword(keyword);
+        return new ResponseEntity<>(new APIResponse<>(true, "Products fetched successfully", productDTO), HttpStatus.OK);
+    }
     @PostMapping("/products")
     public ResponseEntity<APIResponse<ProductDTO>> createProduct(
             @RequestBody CreateProductRequest createProductRequest

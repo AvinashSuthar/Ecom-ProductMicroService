@@ -12,5 +12,6 @@ public interface ProductService {
 
     ProductDTO createProduct(CreateProductRequest createProductRequest);
 
+    List<ProductDTO> getProductsByKeyword(String keyword);
     ProductDTO updateProduct(CreateProductRequest createProductRequest, Long productId);
 }
