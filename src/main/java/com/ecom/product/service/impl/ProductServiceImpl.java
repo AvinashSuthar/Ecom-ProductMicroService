@@ -62,5 +62,16 @@ public class ProductServiceImpl implements ProductService {
             throw new NoResourceFoundException("No products found with keyword: " + keyword);
         }
         return products.stream().map(p -> modelMapper.map(p, ProductDTO.class)).toList();
+    } 
+    @Override
+    public ProductDTO updateProduct(CreateProductRequest createProductRequest, Long productId) {
+        Product product = productMapper.mapToProduct(createProductRequest);
+        Optional<Product> savedProduct = productRepository.findById(productId);
+        if(savedProduct.isEmpty()) {
+            throw new NoResourceFoundException("Product with ID " + productId + " not found");
+        }
+        product.setProductId(productId);
+        Product updatedProduct = productRepository.save(product);
+        return modelMapper.map(updatedProduct, ProductDTO.class);
     }
 }
