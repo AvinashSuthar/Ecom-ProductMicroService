@@ -37,6 +37,7 @@ public class ProductController {
         List<ProductDTO> productDTO = productService.getProductsByKeyword(keyword);
         return new ResponseEntity<>(new APIResponse<>(true, "Products fetched successfully", productDTO), HttpStatus.OK);
     }
+
     @PostMapping("/products")
     public ResponseEntity<APIResponse<ProductDTO>> createProduct(
             @RequestBody CreateProductRequest createProductRequest
