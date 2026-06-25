@@ -14,11 +14,12 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Category extends Auditable{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long categoryId;
-    @NotBlank(message = "Category name cannot be null")
-    @Size(min = 1, message = "Category name must be at least 1 character long")
-    private String name;
+public class Category extends Auditable {
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long categoryId;
+
+  @NotBlank(message = "Category name cannot be null")
+  @Size(min = 1, message = "Category name must be at least 1 character long")
+  private String name;
 }
