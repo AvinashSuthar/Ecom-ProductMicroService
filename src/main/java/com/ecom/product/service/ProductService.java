@@ -2,16 +2,16 @@ package com.ecom.product.service;
 
 import com.ecom.product.dtos.ProductDTO;
 import com.ecom.product.dtos.request.CreateProductRequest;
-
 import java.util.List;
 
 public interface ProductService {
-    List<ProductDTO> getProducts(Integer page, Integer size, String sortBy, String orderBy);
+  List<ProductDTO> getProducts(Integer page, Integer size, String sortBy, String orderBy);
 
-    ProductDTO deleteProduct(Long productId);
+  ProductDTO deleteProduct(Long productId);
 
-    ProductDTO createProduct(CreateProductRequest createProductRequest);
+  ProductDTO createProduct(CreateProductRequest createProductRequest);
 
-    List<ProductDTO> getProductsByKeyword(String keyword);
-    ProductDTO updateProduct(CreateProductRequest createProductRequest, Long productId);
+  List<ProductDTO> getProductsByKeyword(String keyword);
+
+  ProductDTO updateProduct(CreateProductRequest createProductRequest, Long productId);
 }
