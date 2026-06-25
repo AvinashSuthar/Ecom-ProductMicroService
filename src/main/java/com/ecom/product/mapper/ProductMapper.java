@@ -6,6 +6,8 @@ import com.ecom.product.entity.Product;
 import com.ecom.product.repository.CategoryRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 public class ProductMapper {
 
@@ -25,7 +27,7 @@ public class ProductMapper {
             category = categoryRepository.save(newCategory);
         }
         product.setName(createProductRequest.name());
-        product.setSlug(createProductRequest.slug());
+        product.setSlug(generateSlug(createProductRequest.name()));
         product.setDescription(createProductRequest.description());
         product.setQuantity(createProductRequest.quantity());
         product.setPrice(createProductRequest.price());
@@ -33,6 +35,11 @@ public class ProductMapper {
         product.setCompany(createProductRequest.company());
         product.setCategory(category);
         return product;
+    }
+    private String generateSlug(String productName) {
+        return productName.trim()
+                .replaceAll("[^a-z0-9\\s]", "") // Keep spaces
+                .replaceAll("\\s+", "-")   .replaceAll("-+" , "-").toLowerCase().concat("-").concat(UUID.randomUUID().toString().substring(0,8));
     }
 
 }
