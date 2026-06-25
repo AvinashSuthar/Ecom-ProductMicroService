@@ -7,6 +7,7 @@ import com.ecom.product.exception.NoResourceFoundException;
 import com.ecom.product.mapper.ProductMapper;
 import com.ecom.product.repository.ProductRepository;
 import com.ecom.product.service.ProductService;
+import com.ecom.product.validateor.ProductValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -19,12 +20,13 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final ModelMapper modelMapper;
     private final ProductMapper productMapper;
+    private final ProductValidator productValidator;
 
-    public ProductServiceImpl(ProductRepository productRepository, ModelMapper modelMapper , ProductMapper productMapper) {
+    public ProductServiceImpl(ProductRepository productRepository, ModelMapper modelMapper , ProductMapper productMapper , ProductValidator productValidator) {
         this.productRepository = productRepository;
         this.modelMapper = modelMapper;
         this.productMapper = productMapper;
-
+        this.productValidator = productValidator;
     }
 
     @Override
@@ -50,8 +52,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDTO createProduct(CreateProductRequest createProductRequest) {
         Product product = productMapper.mapToProduct(createProductRequest);
+        //TODO: set the seller
+        product.setSeller(1L);
+        productValidator.validate(product);
         Product savedProduct = productRepository.save(product);
-
         return modelMapper.map(savedProduct, ProductDTO.class);
     }
 
@@ -70,6 +74,9 @@ public class ProductServiceImpl implements ProductService {
         if(savedProduct.isEmpty()) {
             throw new NoResourceFoundException("Product with ID " + productId + " not found");
         }
+        //TODO: set the seller
+        product.setSeller(1L);
+        productValidator.validate(product);
         product.setProductId(productId);
         Product updatedProduct = productRepository.save(product);
         return modelMapper.map(updatedProduct, ProductDTO.class);
