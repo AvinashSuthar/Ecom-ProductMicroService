@@ -6,20 +6,27 @@ import com.ecom.product.dtos.request.CreateProductRequest;
 import com.ecom.product.response.APIResponse;
 import com.ecom.product.service.ProductService;
 import java.util.List;
+
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/products")
+@RequiredArgsConstructor
 public class ProductController {
   private final ProductService productService;
 
-  public ProductController(ProductService productService) {
-    this.productService = productService;
+  @GetMapping("/{productId}")
+  public ResponseEntity<APIResponse<ProductDTO>> getProduct(@PathVariable Long productId) {
+    ProductDTO productDTO = productService.getProductById(productId);
+    return new ResponseEntity<>(
+        new APIResponse<>(true, "Product fetched successfully", productDTO), HttpStatus.OK);
+
   }
 
-  @GetMapping("/products")
+  @GetMapping
   public ResponseEntity<APIResponse<List<ProductDTO>>> getProducts(
       @RequestParam(value = "page", defaultValue = "0") Integer page,
       @RequestParam(value = "size", defaultValue = "10") Integer size,
@@ -30,7 +37,7 @@ public class ProductController {
         new APIResponse<>(true, "Products fetched successfully", productDTO), HttpStatus.OK);
   }
 
-  @GetMapping("/products/{keyword}")
+  @GetMapping("/{keyword}")
   public ResponseEntity<APIResponse<List<ProductDTO>>> getProductsByKeyword(
       @PathVariable("keyword") String keyword) {
     List<ProductDTO> productDTO = productService.getProductsByKeyword(keyword);
@@ -38,7 +45,7 @@ public class ProductController {
         new APIResponse<>(true, "Products fetched successfully", productDTO), HttpStatus.OK);
   }
 
-  @PostMapping("/products")
+  @PostMapping
   public ResponseEntity<APIResponse<ProductDTO>> createProduct(
       @RequestBody CreateProductRequest createProductRequest) {
     ProductDTO createdProduct = productService.createProduct(createProductRequest);
@@ -47,7 +54,7 @@ public class ProductController {
         HttpStatus.CREATED);
   }
 
-  @PutMapping("/products/{productId}")
+  @PutMapping("/{productId}")
   public ResponseEntity<APIResponse<ProductDTO>> updateProduct(
       @PathVariable("productId") Long productId,
       @RequestBody CreateProductRequest createProductRequest) {
@@ -56,11 +63,12 @@ public class ProductController {
         new APIResponse<>(true, "Product updated successfully", updatedProduct), HttpStatus.OK);
   }
 
-  @DeleteMapping("/products/{productId}")
+  @DeleteMapping("/{productId}")
   public ResponseEntity<APIResponse<ProductDTO>> deleteProduct(
       @PathVariable("productId") Long productId) {
     ProductDTO deletedProduct = productService.deleteProduct(productId);
     return new ResponseEntity<>(
         new APIResponse<>(true, "Product deleted successfully", deletedProduct), HttpStatus.OK);
   }
+
 }
