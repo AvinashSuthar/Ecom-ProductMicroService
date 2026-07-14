@@ -37,7 +37,7 @@ public class ProductController {
         new APIResponse<>(true, "Products fetched successfully", productDTO), HttpStatus.OK);
   }
 
-  @GetMapping("/{keyword}")
+  @GetMapping("/keyword/{keyword}")
   public ResponseEntity<APIResponse<List<ProductDTO>>> getProductsByKeyword(
       @PathVariable("keyword") String keyword) {
     List<ProductDTO> productDTO = productService.getProductsByKeyword(keyword);
