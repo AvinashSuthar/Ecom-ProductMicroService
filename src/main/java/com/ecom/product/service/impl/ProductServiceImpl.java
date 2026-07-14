@@ -13,8 +13,6 @@ import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
-
 @Service
 public class ProductServiceImpl implements ProductService {
 
@@ -91,7 +89,7 @@ public class ProductServiceImpl implements ProductService {
   @Override
   public ProductDTO getProductById(Long productId) {
     Optional<Product> product = productRepository.findById(productId);
-    if(product.isEmpty()) {
+    if (product.isEmpty()) {
       throw new NoResourceFoundException("Product with ID " + productId + " not found");
     }
     return modelMapper.map(product.get(), ProductDTO.class);

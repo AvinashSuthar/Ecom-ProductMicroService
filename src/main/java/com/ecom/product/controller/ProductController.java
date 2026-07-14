@@ -6,7 +6,6 @@ import com.ecom.product.dtos.request.CreateProductRequest;
 import com.ecom.product.response.APIResponse;
 import com.ecom.product.service.ProductService;
 import java.util.List;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +22,6 @@ public class ProductController {
     ProductDTO productDTO = productService.getProductById(productId);
     return new ResponseEntity<>(
         new APIResponse<>(true, "Product fetched successfully", productDTO), HttpStatus.OK);
-
   }
 
   @GetMapping
@@ -70,5 +68,4 @@ public class ProductController {
     return new ResponseEntity<>(
         new APIResponse<>(true, "Product deleted successfully", deletedProduct), HttpStatus.OK);
   }
-
 }
